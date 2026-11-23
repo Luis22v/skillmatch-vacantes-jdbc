@@ -1,0 +1,107 @@
+/* SkillMatch · colores de marca: azul marino (base), turquesa (acciones), naranja (acento) */
+:root {
+    --marino: #0B1B2C;
+    --turquesa: #20B2C4;
+    --naranja: #FF7618;
+    --fondo: #F4F7FA;
+    --borde: #D6E0EA;
+    --texto: #1C2B3A;
+    --suave: #5B6B7B;
+    --rojo: #C8372D;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--fondo);
+    color: var(--texto);
+}
+
+.barra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    background: var(--marino);
+}
+.barra nav { display: flex; gap: 16px; align-items: center; }
+.barra nav a { color: #fff; text-decoration: none; }
+.marca { color: #fff; font-size: 22px; font-weight: 700; text-decoration: none; }
+.marca span { color: var(--turquesa); }
+
+.contenido { max-width: 1100px; margin: 0 auto; padding: 24px 32px 48px; }
+h1 { color: var(--marino); margin-top: 8px; }
+
+.boton {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 0;
+    border-radius: 8px;
+    background: var(--turquesa);
+    color: #fff;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+.boton-acento { background: var(--naranja); }
+.boton-suave { background: #fff; color: var(--marino); border: 1px solid var(--borde); }
+.boton-peligro { background: #fff; color: var(--rojo); border: 1px solid #EBC3BF; }
+
+.aviso { padding: 10px 14px; border-radius: 8px; }
+.aviso-ok { background: #E3F6F8; border: 1px solid #A9DFE6; }
+.aviso-error { background: #FCE9E7; border: 1px solid #EFB9B3; color: #7A1F17; }
+
+.filtro { display: flex; gap: 10px; align-items: center; margin: 16px 0 8px; }
+.contador { color: var(--suave); }
+
+.tabla { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--borde); }
+.tabla th, .tabla td { padding: 10px 12px; border-bottom: 1px solid var(--borde); text-align: left; vertical-align: middle; }
+.tabla th { background: #EAF0F6; color: var(--marino); font-size: 14px; }
+.tabla a { color: var(--marino); font-weight: 600; }
+.numero { white-space: nowrap; }
+.acciones { display: flex; gap: 8px; }
+.acciones form { margin: 0; }
+
+.etiqueta { padding: 3px 10px; border-radius: 999px; font-size: 13px; }
+.estado-abierta { background: #E3F6F8; color: #0D6E7A; }
+.estado-pausada { background: #FFF0E3; color: #A44A06; }
+.estado-cerrada { background: #ECEFF2; color: var(--suave); }
+
+.formulario, .tarjeta {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 12px;
+    padding: 24px;
+}
+.formulario { display: flex; flex-direction: column; gap: 6px; }
+.formulario label { font-weight: 600; margin-top: 10px; }
+.formulario input, .formulario select, .formulario textarea {
+    padding: 8px 10px;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    font: inherit;
+    width: 100%;
+}
+.fila { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.botones { display: flex; gap: 10px; margin-top: 18px; }
+
+.subtitulo { color: var(--suave); }
+.datos { display: grid; grid-template-columns: 180px 1fr; gap: 8px 16px; }
+.datos dt { font-weight: 600; color: var(--marino); }
+.datos dd { margin: 0; }
+
+.vacio { color: var(--suave); }
+
+/* En pantallas angostas la tabla se desplaza dentro de su caja, no toda la página */
+.tabla-contenedor { overflow-x: auto; }
+.tabla-contenedor .tabla { min-width: 860px; }
+
+@media (max-width: 640px) {
+    .barra { padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+    .contenido { padding: 16px 16px 32px; }
+    .filtro { flex-wrap: wrap; }
+    .datos { grid-template-columns: 1fr; }
+}
+.pie { text-align: center; color: var(--suave); font-size: 13px; padding: 24px; }

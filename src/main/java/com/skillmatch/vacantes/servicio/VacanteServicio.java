@@ -79,6 +79,9 @@ public class VacanteServicio {
                 || vacante.getNivelExperiencia() == null || vacante.getEstado() == null) {
             throw new ValidacionException("Faltan el tipo de contrato, la modalidad, el nivel o el estado.");
         }
+        if (vacante.getFechaPublicacion() == null) {
+            throw new ValidacionException("Falta la fecha de publicación.");
+        }
         validarSalario(vacante.getSalarioMin(), vacante.getSalarioMax());
         if (vacante.getFechaCierre() != null && vacante.getFechaCierre().isBefore(vacante.getFechaPublicacion())) {
             throw new ValidacionException("La fecha de cierre no puede ser anterior a la de publicación.");

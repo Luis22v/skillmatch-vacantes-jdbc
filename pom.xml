@@ -16,6 +16,9 @@
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <clase.principal>com.skillmatch.vacantes.app.AplicacionConsola</clase.principal>
+        <!-- Tomcat 8.5 que trae XAMPP: aporta la API de servlets y es el servidor donde se despliega -->
+        <tomcat.home>C:/xampp/tomcat</tomcat.home>
+        <web.salida>${project.build.directory}/webapp</web.salida>
     </properties>
 
     <dependencies>
@@ -32,6 +35,16 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- API de servlets (javax.servlet 3.1). La aporta Tomcat en tiempo de ejecución,
+             por eso se compila contra el jar de Tomcat y no se empaqueta en la aplicación -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
+            <scope>system</scope>
+            <systemPath>${tomcat.home}/lib/servlet-api.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <build>
@@ -45,6 +58,39 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.3.1</version>
+                <executions>
+                    <!-- Arma la aplicación web en target/webapp: páginas JSP + clases compiladas -->
+                    <execution>
+                        <id>web-paginas</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${web.salida}</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/webapp</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>web-clases</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${web.salida}/WEB-INF/classes</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.outputDirectory}</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -84,6 +130,17 @@
                         </goals>
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>web-librerias</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${web.salida}/WEB-INF/lib</outputDirectory>
                             <includeScope>runtime</includeScope>
                         </configuration>
                     </execution>

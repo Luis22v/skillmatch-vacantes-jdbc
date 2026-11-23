@@ -19,6 +19,17 @@ import java.util.Properties;
 public final class ConexionBD {
 
     private static final String ARCHIVO_PROPIEDADES = "db.properties";
+    private static final String CONTROLADOR_MYSQL = "com.mysql.cj.jdbc.Driver";
+
+    static {
+        // Registra el controlador JDBC. En un programa de consola se registra solo, pero dentro
+        // de Tomcat el jar está en WEB-INF/lib y DriverManager no lo encuentra si no se carga aquí.
+        try {
+            Class.forName(CONTROLADOR_MYSQL);
+        } catch (ClassNotFoundException e) {
+            throw new IllegalStateException("No se encontró el controlador JDBC de MySQL (" + CONTROLADOR_MYSQL + ")", e);
+        }
+    }
 
     private final String url;
     private final String usuario;
