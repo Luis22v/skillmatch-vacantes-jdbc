@@ -1,0 +1,17 @@
+# Compilación
+target/
+
+# Archivos para subir a Zajuna (no son código)
+entregas/
+
+# Editores
+.idea/
+*.iml
+.vscode/
+
+# Sistema
+Thumbs.db
+.DS_Store
+
+# Configuración local con contraseña (usar db.properties de ejemplo o variables de entorno)
+db.local.properties
