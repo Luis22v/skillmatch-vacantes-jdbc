@@ -15,3 +15,6 @@ Thumbs.db
 
 # Configuración local con contraseña (usar db.properties de ejemplo o variables de entorno)
 db.local.properties
+
+# Copias de respaldo de MySQL Workbench
+*.bak
